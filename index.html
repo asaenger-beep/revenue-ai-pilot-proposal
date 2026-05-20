@@ -1,0 +1,240 @@
+<!DOCTYPE html><script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Revenue Ai Pilot Proposal",
+  "schemaVersion": 1,
+  "description": "Exec-ready Revenue Team AI Pilot Proposal for SVP Revenue / VP Sales — 3 tabs covering the opportunity, architecture with expandable per-team examples, and the pilot plan with timeline and ask."
+}
+</script>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revenue AI Pilot Proposal</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f7f8fa; color: #1a1a2e; }
+  .header { background: #0d1117; color: #fff; padding: 24px 32px 20px; }
+  .header-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 2px; }
+  .header h1 { font-size: 18px; font-weight: 800; letter-spacing: -0.4px; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 3px; }
+  .header-badge { font-size: 10px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); padding: 4px 12px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+  .tabs { display: flex; gap: 2px; background: #ebebef; padding: 4px; margin: 16px 20px 0; border-radius: 10px; width: fit-content; }
+  .tab { padding: 7px 20px; font-size: 12px; font-weight: 600; border-radius: 7px; border: none; background: transparent; color: #666; cursor: pointer; transition: all 0.15s; }
+  .tab.active { background: #fff; color: #0d1117; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+  .main { padding: 20px 20px 48px; max-width: 900px; }
+  .view { display: none; }
+  .view.active { display: block; }
+  .opp-hero { background: #0d1117; color: #fff; border-radius: 12px; padding: 26px 28px; margin-bottom: 20px; }
+  .opp-hero h2 { font-size: 19px; font-weight: 800; line-height: 1.35; margin-bottom: 10px; }
+  .opp-hero h2 span { color: #60a5fa; }
+  .opp-hero p { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.7; max-width: 600px; }
+  .section-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #aaa; margin-bottom: 12px; }
+  .insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .insight-card { background: #fff; border: 1.5px solid #e8e8ec; border-radius: 10px; padding: 16px 18px; display: flex; gap: 13px; align-items: flex-start; }
+  .insight-icon { font-size: 22px; flex-shrink: 0; }
+  .insight-title { font-size: 12px; font-weight: 700; color: #111; margin-bottom: 4px; }
+  .insight-desc { font-size: 11px; color: #777; line-height: 1.6; }
+  .layer-section { margin-bottom: 14px; }
+  .layer-section-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #aaa; margin-bottom: 6px; }
+  .foundation-bar { background: #0d1117; color: #fff; border-radius: 10px; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  .fb-name { font-size: 14px; font-weight: 700; }
+  .fb-sub { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 2px; }
+  .fb-pills { display: flex; gap: 5px; flex-wrap: wrap; }
+  .fb-pill { font-size: 9px; padding: 3px 9px; background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.65); border-radius: 20px; }
+  .shared-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .shared-chip { flex: 1; min-width: 100px; background: #fff; border: 1.5px solid #e4e4e4; border-radius: 8px; padding: 10px 12px; text-align: center; }
+  .sc-icon { font-size: 16px; margin-bottom: 4px; }
+  .sc-name { font-size: 10px; font-weight: 700; color: #222; }
+  .sc-sub { font-size: 9px; color: #aaa; margin-top: 2px; }
+  .team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .team-card { background: #fff; border: 1.5px solid #e4e4e4; border-radius: 10px; overflow: hidden; cursor: pointer; transition: box-shadow 0.15s; }
+  .team-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.09); }
+  .tc-header { padding: 13px 16px; background: var(--tc-bg); display: flex; align-items: center; justify-content: space-between; }
+  .tc-name { font-size: 12px; font-weight: 800; color: var(--tc-color); }
+  .tc-role { font-size: 10px; color: rgba(0,0,0,0.4); margin-top: 2px; }
+  .tc-toggle { font-size: 10px; color: var(--tc-color); font-weight: 700; }
+  .tc-pills { padding: 8px 16px 11px; display: flex; gap: 5px; flex-wrap: wrap; }
+  .tc-pill { font-size: 9px; font-weight: 600; padding: 2px 8px; border-radius: 4px; background: var(--tc-pill-bg); color: var(--tc-color); }
+  .tc-examples { display: none; border-top: 1px solid #f0f0f2; }
+  .tc-example { padding: 10px 16px; display: flex; gap: 10px; border-bottom: 1px solid #f7f7f9; }
+  .tc-example:last-child { border-bottom: none; }
+  .tc-num { width: 18px; height: 18px; border-radius: 50%; background: var(--tc-pill-bg); color: var(--tc-color); font-size: 9px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .tc-ex-title { font-size: 11px; font-weight: 700; color: #222; margin-bottom: 3px; }
+  .tc-ex-desc { font-size: 10px; color: #888; line-height: 1.55; }
+  .pilot-hero { background: linear-gradient(135deg, #0d1117 0%, #1a2744 100%); color: #fff; border-radius: 12px; padding: 22px 28px; margin-bottom: 20px; }
+  .pilot-hero h2 { font-size: 16px; font-weight: 800; margin-bottom: 6px; }
+  .pilot-hero p { font-size: 12px; color: rgba(255,255,255,0.55); line-height: 1.65; }
+  .phase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 22px; }
+  .phase-card { background: #fff; border: 1.5px solid #e8e8ec; border-radius: 10px; padding: 18px 20px; border-top: 3px solid var(--pc); }
+  .phase-tag { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--pc); margin-bottom: 5px; }
+  .phase-name { font-size: 14px; font-weight: 800; color: #111; margin-bottom: 3px; }
+  .phase-time { font-size: 11px; color: #999; margin-bottom: 13px; }
+  .phase-items { display: flex; flex-direction: column; gap: 7px; }
+  .phase-item { display: flex; gap: 8px; font-size: 11px; color: #555; line-height: 1.4; align-items: flex-start; }
+  .phase-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--pc); flex-shrink: 0; margin-top: 4px; }
+  .ask-card { background: #fff; border: 1.5px solid #e8e8ec; border-radius: 10px; padding: 20px 24px; }
+  .ask-items { display: flex; flex-direction: column; gap: 14px; }
+  .ask-item { display: flex; gap: 13px; align-items: flex-start; }
+  .ask-num { width: 24px; height: 24px; border-radius: 50%; background: #0d1117; color: #fff; font-size: 10px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .ask-title { font-size: 12px; font-weight: 700; color: #111; margin-bottom: 3px; }
+  .ask-desc { font-size: 11px; color: #777; line-height: 1.6; }
+  .dd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .dd-card { background: #fff; border: 1.5px solid #e8e8ec; border-radius: 12px; overflow: hidden; }
+  .dd-header { padding: 14px 18px 12px; border-bottom: 1px solid #f0f0f2; }
+  .dd-eyebrow { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--dd-c); margin-bottom: 4px; }
+  .dd-title { font-size: 14px; font-weight: 800; color: #111; margin-bottom: 3px; }
+  .dd-sub { font-size: 11px; color: #888; line-height: 1.5; }
+  .dd-layers { padding: 14px 18px; display: flex; flex-direction: column; gap: 0; }
+  .dd-layer { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid #f5f5f7; }
+  .dd-layer:last-child { border-bottom: none; }
+  .dd-layer-badge { font-size: 8px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; padding: 2px 8px; border-radius: 20px; flex-shrink: 0; margin-top: 1px; background: var(--dd-bl); color: var(--dd-c); }
+  .dd-layer-name { font-size: 11px; font-weight: 700; color: #222; margin-bottom: 2px; }
+  .dd-layer-items { font-size: 10px; color: #888; line-height: 1.55; }
+  .dd-arrow { text-align: center; font-size: 10px; color: #ccc; padding: 2px 0; }
+  .dd-footer { padding: 12px 18px; border-top: 1px solid #f0f0f2; display: flex; align-items: center; justify-content: space-between; background: #fafafa; }
+  .dd-footer-note { font-size: 10px; color: #aaa; }
+  .dd-open-btn { font-size: 10px; font-weight: 700; color: var(--dd-c); background: var(--dd-bl); border: none; border-radius: 20px; padding: 5px 13px; cursor: pointer; }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-top">
+    <div><h1>Revenue Team AI Pilot</h1><div class="header-sub">Proposal · May 2026</div></div>
+    <div class="header-badge">Revenue Leadership</div>
+  </div>
+</div>
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('opportunity')">Opportunity</button>
+  <button class="tab" onclick="switchTab('architecture')">Architecture</button>
+  <button class="tab" onclick="switchTab('pilot')">Path Forward</button>
+  <button class="tab" onclick="switchTab('deepdives')">Deep Dives</button>
+</div>
+<div class="main">
+  <div id="view-opportunity" class="view active">
+    <div class="opp-hero">
+      <h2>We want to move at Revenue Lab speed.<br><span>The expertise is here. The infrastructure to make it travel automatically isn't — yet.</span></h2>
+      <p>This team has the talent, the positioning, and the frameworks. The gap is infrastructure: right now, expertise doesn't travel automatically. The architecture fixes that: build the knowledge once, and every team inherits it automatically.</p>
+    </div>
+    <div class="section-label">How the three layers work together</div>
+    <div class="insight-grid">
+      <div class="insight-card"><div class="insight-icon">🗄️</div><div><div class="insight-title">Data layer — your existing stack</div><div class="insight-desc">HubSpot, Google Drive, Asana, Slack, Zoom, G2, Guru — live inputs that feed context into every output without manual pulling.</div></div></div>
+      <div class="insight-card"><div class="insight-icon">🧠</div><div><div class="insight-title">Skills layer — your team's expertise</div><div class="insight-desc">Marketing psychology, messaging frameworks, persona wrappers, sales methodology, PMM positioning — packaged once, available to all.</div></div></div>
+      <div class="insight-card"><div class="insight-icon">🚀</div><div><div class="insight-title">Application layer — teams ship faster</div><div class="insight-desc">Teams say "launch a campaign" or "draft a co-sell one-pager" and automatically pull correct positioning, messaging, and brand.</div></div></div>
+      <div class="insight-card"><div class="insight-icon">📡</div><div><div class="insight-title">Org-level vs. team-level skills</div><div class="insight-desc">PMM and brand skills apply automatically to everyone. Team-specific skills layer on top for their team only.</div></div></div>
+    </div>
+  </div>
+  <div id="view-architecture" class="view">
+    <div class="layer-section">
+      <div class="layer-section-label">Layer 1 — Platform Foundation</div>
+      <div class="foundation-bar"><div><div class="fb-name">Claude + Cowork</div><div class="fb-sub">AI engine · Secure workspace · Connector fabric</div></div><div class="fb-pills"><span class="fb-pill">SSO / Auth</span><span class="fb-pill">SOC 2</span><span class="fb-pill">Role Permissions</span><span class="fb-pill">Audit Logs</span></div></div>
+    </div>
+    <div class="layer-section">
+      <div class="layer-section-label">Layer 2 — Shared Core Plugins (every team)</div>
+      <div class="shared-row">
+        <div class="shared-chip"><div class="sc-icon">🔍</div><div class="sc-name">Enterprise Search</div><div class="sc-sub">Slack · Drive · Guru</div></div>
+        <div class="shared-chip"><div class="sc-icon">✅</div><div class="sc-name">Productivity</div><div class="sc-sub">Tasks · Memory</div></div>
+        <div class="shared-chip"><div class="sc-icon">🛡️</div><div class="sc-name">Security</div><div class="sc-sub">Guardrails · PII</div></div>
+        <div class="shared-chip"><div class="sc-icon">💬</div><div class="sc-name">Comms</div><div class="sc-sub">Slack · Gmail</div></div>
+        <div class="shared-chip"><div class="sc-icon">🧠</div><div class="sc-name">PI Knowledge</div><div class="sc-sub">Personas · Brand</div></div>
+      </div>
+    </div>
+    <div class="layer-section">
+      <div class="layer-section-label">Layer 3 — Revenue Team Plugin Bundles</div>
+      <div class="team-grid">
+        <div class="team-card" style="--tc-bg:#EEF3FE;--tc-color:#1D4ED8;--tc-pill-bg:#DBEAFE;" onclick="toggleCard(this)">
+          <div class="tc-header"><div><div class="tc-name">Direct Sales</div><div class="tc-role">AE · SDR · Sales Manager</div></div><div class="tc-toggle">▾ Examples</div></div>
+          <div class="tc-pills"><span class="tc-pill">Call Prep</span><span class="tc-pill">Pipeline Review</span><span class="tc-pill">Follow-up Drafts</span></div>
+          <div class="tc-examples">
+            <div class="tc-example"><div class="tc-num">1</div><div><div class="tc-ex-title">"Prep me for my Acme call in 30 min"</div><div class="tc-ex-desc">Pulls Salesforce history, open tasks, email thread, and attendee profiles. Full briefing in under 60 seconds.</div></div></div>
+            <div class="tc-example"><div class="tc-num">2</div><div><div class="tc-ex-title">"Draft a follow-up from today's discovery call"</div><div class="tc-ex-desc">Reads Zoom transcript, extracts pain points and next steps, writes tailored follow-up email ready to send.</div></div></div>
+            <div class="tc-example"><div class="tc-num">3</div><div><div class="tc-ex-title">"Where does my pipeline stand vs. quota?"</div><div class="tc-ex-desc">Queries Salesforce live, shows weighted forecast, flags stale deals, surfaces top 3 actions for the week.</div></div></div>
+          </div>
+        </div>
+        <div class="team-card" style="--tc-bg:#EEF3FE;--tc-color:#1D4ED8;--tc-pill-bg:#DBEAFE;" onclick="toggleCard(this)">
+          <div class="tc-header"><div><div class="tc-name">Sales Enablement</div><div class="tc-role">Enablement Manager</div></div><div class="tc-toggle">▾ Examples</div></div>
+          <div class="tc-pills"><span class="tc-pill">Battlecards</span><span class="tc-pill">Onboarding Plans</span><span class="tc-pill">Objection Intel</span></div>
+          <div class="tc-examples">
+            <div class="tc-example"><div class="tc-num">1</div><div><div class="tc-ex-title">"Build a battlecard for our top competitor"</div><div class="tc-ex-desc">Researches G2 and web, generates interactive battlecard with objection handlers by persona.</div></div></div>
+            <div class="tc-example"><div class="tc-num">2</div><div><div class="tc-ex-title">"Create an onboarding plan for our 3 new AEs"</div><div class="tc-ex-desc">Generates 30/60/90 day plan with Day 1 agenda, tool access checklist, and ramp milestones.</div></div></div>
+          </div>
+        </div>
+        <div class="team-card" style="--tc-bg:#F3EFFE;--tc-color:#5B21B6;--tc-pill-bg:#EDE9FE;" onclick="toggleCard(this)">
+          <div class="tc-header"><div><div class="tc-name">Revenue Operations</div><div class="tc-role">Sales Ops · Marketing Ops</div></div><div class="tc-toggle">▾ Examples</div></div>
+          <div class="tc-pills"><span class="tc-pill">SQL Queries</span><span class="tc-pill">Dashboards</span><span class="tc-pill">Process SOPs</span></div>
+          <div class="tc-examples">
+            <div class="tc-example"><div class="tc-num">1</div><div><div class="tc-ex-title">"Show MQL-to-SQL conversion by segment"</div><div class="tc-ex-desc">Generates optimized SQL from HubSpot and Salesforce with correct field names. Ready in minutes.</div></div></div>
+            <div class="tc-example"><div class="tc-num">2</div><div><div class="tc-ex-title">"Build a weekly pipeline health dashboard"</div><div class="tc-ex-desc">Fetches Salesforce data, builds interactive dashboard with KPI cards, stage funnel, and risk flags.</div></div></div>
+          </div>
+        </div>
+        <div class="team-card" style="--tc-bg:#FEF3E2;--tc-color:#92400E;--tc-pill-bg:#FDE8CC;grid-column:1/-1;" onclick="toggleCard(this)">
+          <div class="tc-header"><div><div class="tc-name">Marketing</div><div class="tc-role">PMM · Demand Gen · Brand · Content</div></div><div class="tc-toggle">▾ Examples</div></div>
+          <div class="tc-pills"><span class="tc-pill">Campaign Planning</span><span class="tc-pill">Content Creation</span><span class="tc-pill">Persona Reviews</span><span class="tc-pill">Profile-Based Messaging</span></div>
+          <div class="tc-examples">
+            <div class="tc-example"><div class="tc-num">1</div><div><div class="tc-ex-title">"Run this launch brief by our personas"</div><div class="tc-ex-desc">Simulates reactions from Tess, Tori, Luke, and Lin — surfaces what lands and specific copy fixes.</div></div></div>
+            <div class="tc-example"><div class="tc-num">2</div><div><div class="tc-ex-title">"Build a 6-week nurture for mid-market HR leads"</div><div class="tc-ex-desc">Full email sequence with timing, subject lines, body copy, CTAs, and A/B suggestions — brand-reviewed automatically.</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="view-pilot" class="view">
+    <div class="pilot-hero">
+      <h2>The architecture is designed. Now we sequence the build.</h2>
+      <p>Demand Gen goes first — the foundation is already in place. PMM engages next to set org-level skills. Then the full revenue org inherits everything automatically.</p>
+    </div>
+    <div class="section-label" style="margin-bottom:12px;">Rollout sequence</div>
+    <div class="phase-grid">
+      <div class="phase-card" style="--pc:#3B72F2;"><div class="phase-tag">Phase 1 — Now</div><div class="phase-name">Demand Gen Foundation</div><div class="phase-time">Already underway</div><div class="phase-items"><div class="phase-item"><div class="phase-dot"></div>DG architecture built: HubSpot, Google Drive, Asana, Zoom, G2 connected</div><div class="phase-item"><div class="phase-dot"></div>Skills layer: marketing psychology, messaging frameworks, persona wrappers</div></div></div>
+      <div class="phase-card" style="--pc:#7C3AED;"><div class="phase-tag">Phase 2 — Next</div><div class="phase-name">PMM + Org-Level Skills</div><div class="phase-time">After DG foundation is stable</div><div class="phase-items"><div class="phase-item"><div class="phase-dot"></div>PMM builds C-suite positioning from Zoom call transcripts</div><div class="phase-item"><div class="phase-dot"></div>Brand + PMM skills set at org level — auto-apply to all teams</div></div></div>
+      <div class="phase-card" style="--pc:#059669;"><div class="phase-tag">Phase 3 — Full Revenue</div><div class="phase-name">Sales, Enablement &amp; RevOps</div><div class="phase-time">Once org-level skills are in place</div><div class="phase-items"><div class="phase-item"><div class="phase-dot"></div>Sales: Josh's methodology packaged as a skill</div><div class="phase-item"><div class="phase-dot"></div>Enablement: battlecards, onboarding plans, and objection intel on demand</div></div></div>
+      <div class="phase-card" style="--pc:#D97706;"><div class="phase-tag">Ongoing</div><div class="phase-name">Each Team Builds Their Skills</div><div class="phase-time">Parallel to all phases</div><div class="phase-items"><div class="phase-item"><div class="phase-dot"></div>Every team lead identifies their 2-3 highest-value repeatable workflows</div><div class="phase-item"><div class="phase-dot"></div>Skills are packaged once and available to the whole org</div></div></div>
+    </div>
+    <div class="section-label" style="margin-bottom:12px;">Decisions to make in this meeting</div>
+    <div class="ask-card">
+      <div class="ask-items">
+        <div class="ask-item"><div class="ask-num">1</div><div><div class="ask-title">Does Revenue become its own Claude org?</div><div class="ask-desc">Org-level plugins apply automatically to everyone. This is what makes PMM and brand skills the default for every output.</div></div></div>
+        <div class="ask-item"><div class="ask-num">2</div><div><div class="ask-title">Can Colleen lead AI skills buildout across teams?</div><div class="ask-desc">A dedicated person driving cross-team skills buildout accelerates everything. Without that, progress depends on each team lead carving out time independently.</div></div></div>
+        <div class="ask-item"><div class="ask-num">3</div><div><div class="ask-title">Who is the operational lead for this rollout?</div><div class="ask-desc">Someone needs to own day-to-day momentum, unblock teams, and run check-ins. Currently TBD.</div></div></div>
+        <div class="ask-item"><div class="ask-num">4</div><div><div class="ask-title">Each team lead: what are your 2-3 highest-value skills?</div><div class="ask-desc">The workflows your team does repeatedly, that are time-consuming, and that follow consistent rules — those are the first skills to build.</div></div></div>
+      </div>
+    </div>
+  </div>
+  <div id="view-deepdives" class="view">
+    <div class="dd-grid">
+      <div class="dd-card" style="--dd-c:#0f1a2e;--dd-bl:#e8eaf0;">
+        <div class="dd-header"><div class="dd-eyebrow">Phase 1 — Already underway</div><div class="dd-title">Demand Gen Plugin Architecture</div><div class="dd-sub">6-layer stack connecting live data to vendor handoffs.</div></div>
+        <div class="dd-layers">
+          <div class="dd-layer"><div class="dd-layer-badge">Data In</div><div><div class="dd-layer-name">Live connectors</div><div class="dd-layer-items">HubSpot · Google Drive · Asana · Slack · Zoom · G2 · PI Behavioral Data</div></div></div>
+          <div class="dd-arrow">↓</div>
+          <div class="dd-layer"><div class="dd-layer-badge" style="background:#0f1a2e;color:#fff;">DG Skills</div><div><div class="dd-layer-name">Plan · Create · Measure</div><div class="dd-layer-items">Strategy briefs · Content + email sequences · Brand review · Performance reports</div></div></div>
+        </div>
+        <div class="dd-footer"><span class="dd-footer-note">4 tabs: Architecture · Team · Governance · In Action</span></div>
+      </div>
+      <div class="dd-card" style="--dd-c:#1a1a2e;--dd-bl:#e8e8f0;">
+        <div class="dd-header"><div class="dd-eyebrow">Phase 2 — Engages next</div><div class="dd-title">PMM Plugin Architecture</div><div class="dd-sub">PMM builds the source of truth once — every team inherits it automatically.</div></div>
+        <div class="dd-layers">
+          <div class="dd-layer"><div class="dd-layer-badge">Data In</div><div><div class="dd-layer-name">Behavioral + market signals</div><div class="dd-layer-items">PI Behavioral Depth · G2 Live Buyer Intent · HR Domain Knowledge</div></div></div>
+          <div class="dd-arrow">↓</div>
+          <div class="dd-layer"><div class="dd-layer-badge" style="background:#1a1a2e;color:#fff;">PMM Owns</div><div><div class="dd-layer-name">Source of truth — built once</div><div class="dd-layer-items">Messaging &amp; Positioning · Persona Library · Buying Committee Map</div></div></div>
+        </div>
+        <div class="dd-footer"><span class="dd-footer-note">4 tabs: Architecture · Personas · Governance · In Action</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+function switchTab(tab) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelector('[onclick="switchTab(\'' + tab + '\')"]').classList.add('active');
+  document.getElementById('view-' + tab).classList.add('active');
+}
+function toggleCard(card) {
+  const isOpen = card.classList.toggle('expanded');
+  card.querySelector('.tc-examples').style.display = isOpen ? 'block' : 'none';
+  card.querySelector('.tc-toggle').textContent = isOpen ? '▴ Hide' : '▾ Examples';
+}
+</script>
+</body>
+</html>
