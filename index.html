@@ -94,7 +94,18 @@
   .dd-arrow { text-align: center; font-size: 10px; color: #ccc; padding: 2px 0; }
   .dd-footer { padding: 12px 18px; border-top: 1px solid #f0f0f2; display: flex; align-items: center; justify-content: space-between; background: #fafafa; }
   .dd-footer-note { font-size: 10px; color: #aaa; }
-  .dd-open-btn { font-size: 10px; font-weight: 700; color: var(--dd-c); background: var(--dd-bl); border: none; border-radius: 20px; padding: 5px 13px; cursor: pointer; }
+  .dd-open-btn { font-size: 10px; font-weight: 700; color: var(--dd-c); background: var(--dd-bl); border: none; border-radius: 20px; padding: 5px 13px; cursor: pointer; transition: opacity 0.15s; }
+  .dd-open-btn:hover { opacity: 0.75; }
+  .dd-details { display: none; border-top: 1px solid #f0f0f2; }
+  .dd-details-tabs { display: flex; gap: 0; border-bottom: 1px solid #f0f0f2; }
+  .dd-details-tab { font-size: 10px; font-weight: 600; padding: 8px 14px; border: none; background: transparent; color: #aaa; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color 0.12s; }
+  .dd-details-tab.active { color: var(--dd-c); border-bottom-color: var(--dd-c); }
+  .dd-details-pane { display: none; padding: 14px 18px; }
+  .dd-details-pane.active { display: block; }
+  .dd-detail-row { display: flex; gap: 8px; align-items: flex-start; padding: 6px 0; border-bottom: 1px solid #f7f7f9; font-size: 11px; }
+  .dd-detail-row:last-child { border-bottom: none; }
+  .dd-detail-label { font-weight: 700; color: #333; min-width: 90px; flex-shrink: 0; }
+  .dd-detail-val { color: #777; line-height: 1.5; }
 </style>
 </head>
 <body>
@@ -209,7 +220,29 @@
           <div class="dd-arrow">↓</div>
           <div class="dd-layer"><div class="dd-layer-badge" style="background:#0f1a2e;color:#fff;">DG Skills</div><div><div class="dd-layer-name">Plan · Create · Measure</div><div class="dd-layer-items">Strategy briefs · Content + email sequences · Brand review · Performance reports</div></div></div>
         </div>
-        <div class="dd-footer"><span class="dd-footer-note">4 tabs: Architecture · Team · Governance · In Action</span></div>
+        <div class="dd-details">
+          <div class="dd-details-tabs">
+            <button class="dd-details-tab active" onclick="switchDDTab(this, 'dg-team')">Team</button>
+            <button class="dd-details-tab" onclick="switchDDTab(this, 'dg-gov')">Governance</button>
+            <button class="dd-details-tab" onclick="switchDDTab(this, 'dg-action')">In Action</button>
+          </div>
+          <div id="dg-team" class="dd-details-pane active">
+            <div class="dd-detail-row"><div class="dd-detail-label">Primary owner</div><div class="dd-detail-val">Alex (Demand Gen lead) — builds and maintains skills layer</div></div>
+            <div class="dd-detail-row"><div class="dd-detail-label">Contributors</div><div class="dd-detail-val">Content, Brand, and Ops leads add skills in their lanes</div></div>
+            <div class="dd-detail-row"><div class="dd-detail-label">Consumers</div><div class="dd-detail-val">Full DG team + any revenue team member running campaigns</div></div>
+          </div>
+          <div id="dg-gov" class="dd-details-pane">
+            <div class="dd-detail-row"><div class="dd-detail-label">Brand review</div><div class="dd-detail-val">Auto-applied on every content output — no manual checklist</div></div>
+            <div class="dd-detail-row"><div class="dd-detail-label">Vendor handoffs</div><div class="dd-detail-val">Slack approval flow before any asset leaves the org</div></div>
+            <div class="dd-detail-row"><div class="dd-detail-label">Data access</div><div class="dd-detail-val">Read-only on HubSpot and G2; write-access only to Drive outputs</div></div>
+          </div>
+          <div id="dg-action" class="dd-details-pane">
+            <div class="dd-detail-row"><div class="dd-detail-label">Prompt</div><div class="dd-detail-val">"Build a 6-week nurture for mid-market HR leads"</div></div>
+            <div class="dd-detail-row"><div class="dd-detail-label">Output</div><div class="dd-detail-val">Full email sequence with subject lines, body copy, CTAs, A/B variants — brand-reviewed automatically</div></div>
+            <div class="dd-detail-row"><div class="dd-detail-label">Time saved</div><div class="dd-detail-val">~4 hours → under 10 minutes</div></div>
+          </div>
+        </div>
+        <div class="dd-footer"><span class="dd-footer-note">Architecture · Team · Governance · In Action</span><button class="dd-open-btn" onclick="toggleDeepDive(this.closest('.dd-card'))">Expand ▾</button></div>
       </div>
       <div class="dd-card" style="--dd-c:#1a1a2e;--dd-bl:#e8e8f0;">
         <div class="dd-header"><div class="dd-eyebrow">Phase 2 — Engages next</div><div class="dd-title">PMM Plugin Architecture</div><div class="dd-sub">PMM builds the source of truth once — every team inherits it automatically.</div></div>
@@ -218,7 +251,30 @@
           <div class="dd-arrow">↓</div>
           <div class="dd-layer"><div class="dd-layer-badge" style="background:#1a1a2e;color:#fff;">PMM Owns</div><div><div class="dd-layer-name">Source of truth — built once</div><div class="dd-layer-items">Messaging &amp; Positioning · Persona Library · Buying Committee Map</div></div></div>
         </div>
-        <div class="dd-footer"><span class="dd-footer-note">4 tabs: Architecture · Personas · Governance · In Action</span></div>
+        <div class="dd-details">
+          <div class="dd-details-tabs">
+            <button class="dd-details-tab active" onclick="switchDDTab(this, 'pmm-personas')">Personas</button>
+            <button class="dd-details-tab" onclick="switchDDTab(this, 'pmm-gov')">Governance</button>
+            <button class="dd-details-tab" onclick="switchDDTab(this, 'pmm-action')">In Action</button>
+          </div>
+          <div id="pmm-personas" class="dd-details-pane active">
+            <div class="dd-detail-row"><div class="dd-detail-label">Tess</div><div class="dd-detail-val">CHRO — strategic, ROI-focused, skeptical of surveys</div></div>
+            <div class="dd-detail-row"><div class="dd-detail-label">Tori</div><div class="dd-detail-val">VP Talent — execution-oriented, drowning in process</div></div>
+            <div class="dd-detail-row"><div class="dd-detail-label">Luke</div><div class="dd-detail-val">CEO — growth mindset, wants proof before committing</div></div>
+            <div class="dd-detail-row"><div class="dd-detail-label">Lin</div><div class="dd-detail-val">HR Business Partner — end-user, adoption gatekeeper</div></div>
+          </div>
+          <div id="pmm-gov" class="dd-details-pane">
+            <div class="dd-detail-row"><div class="dd-detail-label">Ownership</div><div class="dd-detail-val">PMM holds the lock on messaging and positioning — no team overrides without review</div></div>
+            <div class="dd-detail-row"><div class="dd-detail-label">Distribution</div><div class="dd-detail-val">Org-level plugin — auto-applies to every team's outputs without any setup</div></div>
+            <div class="dd-detail-row"><div class="dd-detail-label">Updates</div><div class="dd-detail-val">PMM refreshes skills after major launches or positioning pivots; teams inherit changes immediately</div></div>
+          </div>
+          <div id="pmm-action" class="dd-details-pane">
+            <div class="dd-detail-row"><div class="dd-detail-label">Prompt</div><div class="dd-detail-val">"Run this launch brief through all four personas"</div></div>
+            <div class="dd-detail-row"><div class="dd-detail-label">Output</div><div class="dd-detail-val">Simulated reactions from Tess, Tori, Luke, and Lin — surfaces what lands and specific copy fixes per persona</div></div>
+            <div class="dd-detail-row"><div class="dd-detail-label">Time saved</div><div class="dd-detail-val">~3 hours of stakeholder review → under 5 minutes</div></div>
+          </div>
+        </div>
+        <div class="dd-footer"><span class="dd-footer-note">Architecture · Personas · Governance · In Action</span><button class="dd-open-btn" onclick="toggleDeepDive(this.closest('.dd-card'))">Expand ▾</button></div>
       </div>
     </div>
   </div>
@@ -234,6 +290,20 @@ function toggleCard(card) {
   const isOpen = card.classList.toggle('expanded');
   card.querySelector('.tc-examples').style.display = isOpen ? 'block' : 'none';
   card.querySelector('.tc-toggle').textContent = isOpen ? '▴ Hide' : '▾ Examples';
+}
+function toggleDeepDive(card) {
+  const details = card.querySelector('.dd-details');
+  const btn = card.querySelector('.dd-open-btn');
+  const isOpen = details.style.display === 'block';
+  details.style.display = isOpen ? 'none' : 'block';
+  btn.textContent = isOpen ? 'Expand ▾' : 'Collapse ▴';
+}
+function switchDDTab(btn, paneId) {
+  const card = btn.closest('.dd-card');
+  card.querySelectorAll('.dd-details-tab').forEach(t => t.classList.remove('active'));
+  card.querySelectorAll('.dd-details-pane').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(paneId).classList.add('active');
 }
 </script>
 </body>
